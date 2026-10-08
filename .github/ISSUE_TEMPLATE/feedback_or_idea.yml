@@ -1,0 +1,46 @@
+name: Feedback or idea
+description: Something you liked, something you wish it did, or a way to make it simpler.
+title: "[Idea] "
+labels: ["feedback", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Everyone who has access to this repository can read this issue, so do not type private details here.
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your feedback or idea
+      description: What would you like to be different, and why? Tell us what you were trying to do.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where in Starstuff
+      options:
+        - Set-up
+        - Overview
+        - Tonight
+        - Planetarium
+        - Catalog
+        - Seestar
+        - Gallery
+        - Process
+        - Processing
+        - Settings or About
+        - Send feedback
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Starstuff version
+      description: In Starstuff press the gear icon (Settings) and scroll down to the heading About. The first line under it is the version. Copy it.
+      placeholder: Starstuff 0.7.0-beta.1
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (optional)
+      description: Drag images here. Cover your Windows user name and any folder paths that show.

@@ -1,0 +1,22 @@
+name: Question
+description: Ask how something works, or what you should do.
+title: "[Question] "
+labels: ["question", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Everyone who has access to this repository can read this issue, so do not type private details here. The README and KNOWN-ISSUES.md may already answer your question.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What are you trying to do, and where are you stuck?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Starstuff version
+      description: In Starstuff press the gear icon (Settings) and scroll down to the heading About. The first line under it is the version. Copy it.
+      placeholder: Starstuff 0.7.0-beta.1

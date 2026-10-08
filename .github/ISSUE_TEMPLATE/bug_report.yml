@@ -1,0 +1,75 @@
+name: Bug report
+description: Something broke, looked wrong or confused you.
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for testing Starstuff. Everyone who has access to this repository can read this issue, so do not type private details here. The report file you attach has them removed.
+  - type: textarea
+    id: steps
+    attributes:
+      label: What you did
+      description: What did you click or type, in order? Does it happen every time, or did it happen once?
+      placeholder: |
+        1. Open the Process tab
+        2. Press Scan
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Say what you saw. If there was an error message, copy it word for word.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Starstuff version
+      description: In Starstuff press the gear icon (Settings) and scroll down to the heading About. The first line under it is the version. Copy it.
+      placeholder: Starstuff 0.7.0-beta.1
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      description: Press the Windows key, type winver, press Enter. Copy the version and build.
+      placeholder: Windows 11, version 24H2
+    validations:
+      required: true
+  - type: input
+    id: telescope
+    attributes:
+      label: Telescope model and firmware (only if it matters)
+      description: For example a Seestar model and the firmware number shown in the Seestar phone app. Leave empty if your problem has nothing to do with a telescope.
+      placeholder: Seestar S50, firmware 7.18
+  - type: textarea
+    id: report-file
+    attributes:
+      label: Report file or log file
+      description: |
+        Best: in Starstuff press the speech-bubble icon (Send feedback), describe the problem, press Save, and drag the zip file named Starstuff-feedback-... from your Downloads folder into this box.
+        If you cannot make that file, attach the log file instead. In Settings, near the bottom, the line "Your settings & scan history are stored in" shows a folder. The log file is called starstuff.log and sits in the folder named logs inside it. If Starstuff does not start at all, open the address %APPDATA%\Starstuff\logs in File Explorer.
+      placeholder: Drag the file here.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshot
+      description: Drag a picture of the problem here. Look at it first. Cover your Windows user name and any folder paths that show.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Before you send
+      options:
+        - label: I looked at my screenshot and covered private details such as my user name and folder paths.
+          required: true
