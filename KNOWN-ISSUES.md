@@ -31,8 +31,7 @@ Weather advice (Seestar tab), place search and the map in the observing-site pic
 | Held mount moves are new and unproven on a real scope | With the telescope add-on, pressing and holding an arrow keeps the mount moving until you let go. The team has not yet checked the stop on release on a real telescope. A refused stop shows a warning. | Stay at the telescope. The "Stop slew" button and the Seestar phone app can stop a move. Tell us what happened. |
 | An older mosaic still shows seams | The seam fix applies when you stack. | Re-stack the mosaic with the Mosaic preset. |
 | Older nights say "Not rated yet" | Only nights that went through a Siril Register run since this feature arrived get a rating. | New runs are rated. Tell us if a new run is not. |
-
-- **The Seestar may say "please update to the latest version of the application".** On firmware 9.31 the scope says this aloud about every ten minutes while Starstuff is connected. It comes from the scope, not from Starstuff, and nothing is wrong. You can ignore it.
+| The scope keeps asking aloud for an app update | While Starstuff is connected, the Seestar says "Please update your app to the latest version" through its speaker about every ten minutes, and right after "Find scope". No phone is involved: the scope is talking to Starstuff's telescope library, which does not introduce itself the way the Seestar app does, so the scope takes it for an old app. Outdoors at night this is a real nuisance. It is a bug and we are working on it. | Until it is fixed, turn the scope's speaker volume down in the Seestar app under the device settings before you connect Starstuff. Nothing needs updating on your side. |
 
 ## Privacy note
 
