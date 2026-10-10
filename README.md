@@ -21,7 +21,7 @@ The test is for finding what breaks, what confuses you, and what you wish it did
 | Need | Detail |
 |---|---|
 | Windows 10 or 11, 64-bit | The build is made with Python 3.14, which needs Windows 10 or newer. It has not been tried on Windows 10 by the team. |
-| Free disk space | About 400 MB for the unzipped program (measured on an earlier build of this version; the beta may differ a little). The zip itself is about 154 MB. For stacking, plan on about 3 times the size of the target folder you stack. |
+| Free disk space | About 400 MB for the unzipped program (measured on an earlier build of this version; the beta may differ a little). The zip itself is about 137 MB. For stacking, plan on about 3 times the size of the target folder you stack. |
 | Siril 1.4 or newer | Free. Get it from https://siril.org and install it first. Starstuff starts it for you. It usually lives in `C:\Program Files\Siril\bin`. If Starstuff cannot find it, set the path in Settings under "Siril CLI Path". |
 | A folder of Seestar captures | One folder that contains a folder called `01_Capture`, with your target folders inside it. |
 | A web browser | Starstuff opens your default browser. |
@@ -32,10 +32,10 @@ The test is for finding what breaks, what confuses you, and what you wish it did
 ## Download
 
 1. Open the [Releases page](https://github.com/starstuff-app/starstuff-releases/releases) of this repository. You must be signed in to GitHub with the account you gave us, and you must have accepted the invitation from GitHub (it comes by email). Until you accept, GitHub shows "404 Page not found".
-2. Open the newest release, for example `v0.7.0-beta.1`.
+2. Open the newest release, for example `v0.7.0-beta.2`.
 3. Under Assets, download both files:
-   - `Starstuff-0.7.0-beta.1-win64.zip` is the program.
-   - `Starstuff-0.7.0-beta.1-win64.zip.sha256` is its fingerprint, used in the next step.
+   - `Starstuff-0.7.0-beta.2-win64.zip` is the program.
+   - `Starstuff-0.7.0-beta.2-win64.zip.sha256` is its fingerprint, used in the next step.
 
 Only the plain zip is ever published here. If a file has `seestar` in its name, do not use it, and tell us.
 
@@ -48,7 +48,7 @@ The fingerprint proves the file arrived whole and is the file we published. It t
 3. Run this command. Use your own zip name if it differs:
 
 ```
-certutil -hashfile Starstuff-0.7.0-beta.1-win64.zip SHA256
+certutil -hashfile Starstuff-0.7.0-beta.2-win64.zip SHA256
 ```
 
 4. It prints a line that starts with "SHA256 hash of", then one long code of 64 letters and digits, then "CertUtil: -hashfile command completed successfully."
@@ -83,12 +83,13 @@ You do this once for each new build. If your antivirus removes the file, tell us
 
 ## First start
 
-On the first start Starstuff shows a window called "Set up Starstuff". It asks four things, one per screen, and you press Next after each:
+On the first start Starstuff shows a window called "Set up Starstuff". It asks five things, one per screen, and you press Next after each:
 
-1. Archive Root Path. The folder that holds your captures, the one that contains `01_Capture`. Tip: open the folder in File Explorer, click the address bar, copy, and paste. A path with quote marks around it is fine. If the folder has no `01_Capture`, Starstuff says so and offers two buttons: "Create 01_Capture here" and "Choose another folder".
-2. Local Processing Path. A fast local drive where Starstuff copies files while stacking. Leave it blank if your captures and your processing are on the same drive.
-3. Latitude. Where you observe, in decimal degrees. North is positive, south is negative. It must be between -90 and 90.
-4. Longitude. East is positive, west is negative. It must be between -180 and 180.
+1. Where Starstuff should keep its own data: settings, logs, caches and downloaded add-ons. Your pictures are not in it. The folder it suggests is already filled in, and the button is "Use this folder". It shows the free space. A folder on a network or removable drive needs a tick to accept, and a folder inside the Starstuff program folder is refused, because an update replaces that folder. Older installs are asked this once too.
+2. Archive Root Path. The folder that holds your captures, the one that contains `01_Capture`. Tip: open the folder in File Explorer, click the address bar, copy, and paste. A path with quote marks around it is fine. If the folder has no `01_Capture`, Starstuff says so and offers two buttons: "Create 01_Capture here" and "Choose another folder".
+3. Local Processing Path. A fast local drive where Starstuff copies files while stacking. Leave it blank if your captures and your processing are on the same drive.
+4. Latitude. Where you observe, in decimal degrees. North is positive, south is negative. It must be between -90 and 90.
+5. Longitude. East is positive, west is negative. It must be between -180 and 180.
 
 After the last screen, which says "Finish", a "Checks" screen shows whether Siril was found and is new enough. Press Done. You cannot skip the set-up. You can change every answer later in Settings (the gear icon in the header).
 
@@ -98,13 +99,13 @@ Back up first. The Process tab buttons "Scan & Prepare" and "Prepare Needed" MOV
 
 ## Telescope control (optional add-on)
 
-Telescope control is not inside the zip. It is a separate library called seestarpy. It is free software written by its own author under the GPL-3.0 licence, and it is not part of Starstuff. Starstuff can download it for you, but only when you press a button.
+Telescope control is not inside the zip. It is a separate library called seestarpy. It is free software written by its own author under the GPL-3.0 license, and it is not part of Starstuff. Starstuff can download it for you, but only when you press a button.
 
 To add it:
 
 1. In Starstuff, open the Seestar tab. It says "Starstuff can't reach a Seestar yet" and shows a card about Seestar support. (The same card is in Settings under About.)
 2. Press "Download Seestar support". It downloads about 143 KB from the internet and checks the file against a fixed checksum. Nothing is installed if the check fails.
-3. The licence name on the card opens the licence notice. The "source code" link goes to the author's page.
+3. The license name on the card opens the license notice. The "source code" link goes to the author's page.
 4. No internet on this PC? On another computer, download the `.whl` file named at the bottom of the card, copy it over, and press "Install from file". Only that exact version is accepted.
 
 Where it goes: `%LOCALAPPDATA%\Starstuff\addons`. Nothing inside the Starstuff program folder changes.
@@ -123,7 +124,7 @@ What it stores, and where:
 
 | What | Where |
 |---|---|
-| Settings, scan history, saved state, the log file | `%APPDATA%\Starstuff` (the log is in its `logs` folder). An older install may use `%APPDATA%\Cosmos`, which keeps working. |
+| Settings, scan history, saved state, the log file | `%APPDATA%\Starstuff`, unless you chose another data folder in the set-up or in Settings (the log is in its `logs` folder). An older install may use `%APPDATA%\Cosmos`, which keeps working. |
 | Rebuildable caches (gallery previews, news, scan results) | Under your Local Processing Path in a folder named `.cosmos_cache`, or in `%APPDATA%\Starstuff` if you left that path blank. |
 | Telescope add-on | `%LOCALAPPDATA%\Starstuff\addons` |
 | Report zips you save | Your Downloads folder |
@@ -171,7 +172,7 @@ More about how reports are handled: [CONTRIBUTING-AS-A-TESTER.md](CONTRIBUTING-A
 
 1. Download the new zip and check it, the same way as above.
 2. Unzip it into a new folder. Do not unzip over the old one.
-3. Start the new `Starstuff.exe`. Your settings, history and add-on carry over, because they live in your user profile, not in the program folder.
+3. Start the new `Starstuff.exe`. Your settings, history and add-on carry over, because they live in your data folder, not in the program folder. The first start of a new build may ask once where to keep the data. The folder it suggests is the one your settings are already in, so press "Use this folder".
 4. When the new build works, delete the old program folder.
 
 If a release note says a data format changed, it will also say what to back up.
@@ -182,9 +183,10 @@ Close Starstuff first (close the console window). Then delete:
 
 1. The program folder you unzipped, for example `C:\Starstuff-test`.
 2. `%APPDATA%\Starstuff` (and `%APPDATA%\Cosmos` if it exists).
-3. `%LOCALAPPDATA%\Starstuff` (this holds the telescope add-on).
+3. `%LOCALAPPDATA%\Starstuff` (this holds the telescope add-on and a small note of which data folder you chose).
 4. The `.cosmos_cache` folder inside your Local Processing Path, if you set one.
-5. Any `Starstuff-feedback-*.zip` files in your Downloads folder.
+5. If you chose a different data folder in the first-run setup or in Settings, that folder too. Settings shows where it is. If you moved it, check the old folder as well.
+6. Any `Starstuff-feedback-*.zip` files in your Downloads folder.
 
 To paste a `%...%` path, type it into the File Explorer address bar and press Enter.
 
@@ -193,6 +195,7 @@ Deleting these does not undo what Starstuff did to your archive. Your stacks and
 ## More
 
 - [KNOWN-ISSUES.md](KNOWN-ISSUES.md): what we already know about.
-- [RELEASE-NOTES-0.7.0-beta.1.md](RELEASE-NOTES-0.7.0-beta.1.md): what is in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.2.md](RELEASE-NOTES-0.7.0-beta.2.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.1.md](RELEASE-NOTES-0.7.0-beta.1.md): what came with the first build.
 - [TEST-TERMS.md](TEST-TERMS.md): the terms of this test.
 - Contact: open an issue in this repository, or message the person who invited you.

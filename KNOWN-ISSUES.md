@@ -1,4 +1,4 @@
-# Known issues in 0.7.0-beta.1
+# Known issues in 0.7.0-beta.2
 
 Checked against the code of this build. Tell us if you hit something that is not listed.
 
@@ -21,9 +21,11 @@ Weather advice (Seestar tab), place search and the map in the observing-site pic
 
 | Issue | What you see | Workaround |
 |---|---|---|
+| The scope keeps asking aloud for an app update | While Starstuff is connected, the Seestar says "Please update your app to the latest version" through its speaker about every ten minutes, and right after "Find scope". No phone is involved: the scope is talking to Starstuff's telescope library, which does not introduce itself the way the Seestar app does, so the scope takes it for an old app. Outdoors at night this is a real nuisance. It is a bug and we are working on it. | Until it is fixed, turn the scope's speaker volume down in the Seestar app under the device settings before you connect Starstuff. Nothing needs updating on your side. |
 | Scan & Prepare and Prepare Needed move files | Your raw `Light_*.fit` files go into a `lights` folder inside each target folder. This is by design. Nothing is deleted or renamed by default. | Keep a backup. Try one copied target folder first. The "Scan" button only looks. |
 | The set-up cannot be skipped | You must give an archive folder, a latitude and a longitude to continue. | Any folder works. If it has no `01_Capture`, press "Create 01_Capture here". Enter your real latitude and longitude, or any numbers, and fix them later in Settings. |
 | The archive drive is unplugged or renamed | The "Set up Starstuff" window opens again, because the folder does not exist. | Reconnect the drive, or give the new folder. |
+| The data folder is on a drive that is not connected | Starstuff does not start as usual. It shows a screen that names the folder and offers only to choose a folder. It never starts with an empty folder in its place. | Connect the drive and start Starstuff again. A folder on a network or removable drive is the reason the set-up asks for a tick. |
 | Port 8100 is in use | The console prints "port 8100 is already in use" and Starstuff exits. There is no automatic fallback to another port. | Close the other copy, or set the `STARSTUFF_PORT` environment variable to another number such as 8101 before you start. |
 | Starstuff cannot restart itself | There is no restart button that works. | Close the console window and start `Starstuff.exe` again. Closing only the browser tab leaves Starstuff running. |
 | 2x drizzle has limits | 2x drizzle does not work with "Split LP into Ha + OIII" or on a mosaic, and it needs about 8 times the disk space a normal run needs for its aligned frames. Starstuff says so before the run starts. | Use a normal stack for those cases, or free disk space first. |
@@ -31,7 +33,6 @@ Weather advice (Seestar tab), place search and the map in the observing-site pic
 | Held mount moves are new and unproven on a real scope | With the telescope add-on, pressing and holding an arrow keeps the mount moving until you let go. The team has not yet checked the stop on release on a real telescope. A refused stop shows a warning. | Stay at the telescope. The "Stop slew" button and the Seestar phone app can stop a move. Tell us what happened. |
 | An older mosaic still shows seams | The seam fix applies when you stack. | Re-stack the mosaic with the Mosaic preset. |
 | Older nights say "Not rated yet" | Only nights that went through a Siril Register run since this feature arrived get a rating. | New runs are rated. Tell us if a new run is not. |
-| The scope keeps asking aloud for an app update | While Starstuff is connected, the Seestar says "Please update your app to the latest version" through its speaker about every ten minutes, and right after "Find scope". No phone is involved: the scope is talking to Starstuff's telescope library, which does not introduce itself the way the Seestar app does, so the scope takes it for an old app. Outdoors at night this is a real nuisance. It is a bug and we are working on it. | Until it is fixed, turn the scope's speaker volume down in the Seestar app under the device settings before you connect Starstuff. Nothing needs updating on your side. |
 
 ## Privacy note
 
