@@ -1,6 +1,6 @@
 # Starstuff test builds
 
-This is the download page for invited testers. It holds test builds of Starstuff and nothing else. There is no source code in this repository. Its address is https://github.com/starstuff-app/starstuff-releases
+This is the download page for invited testers. It holds test builds of Starstuff and nothing else. Its address is https://github.com/starstuff-app/starstuff-releases
 
 This page is public, so you do not need to sign in to read it or to download a build. You can open issues once you are signed in to GitHub. You cannot change files or releases, and you do not need to.
 
