@@ -2,7 +2,7 @@
 
 This is the download page for invited testers. It holds test builds of Starstuff and nothing else. There is no source code in this repository. Its address is https://github.com/starstuff-app/starstuff-releases
 
-You have the Read role here. You can read this page, download the builds and open issues. You cannot change files or releases, and you do not need to.
+This page is public, so you do not need to sign in to read it or to download a build. You can open issues once you are signed in to GitHub. You cannot change files or releases, and you do not need to.
 
 Please do not share the link, the files or anything you read here with other people.
 
@@ -14,7 +14,7 @@ Starstuff is a program for people who own a ZWO Seestar telescope. It runs on yo
 
 This is a test build. It may have bugs, and it may lose or damage data. Keep a backup of your photos. The terms of the test are in [TEST-TERMS.md](TEST-TERMS.md).
 
-The test is for finding what breaks, what confuses you, and what you wish it did. It is not a finished product. It is not signed, it does not update itself, and it has no support promise. Your reports are the point.
+The test is for finding what breaks, what confuses you, and what you wish it did. It is not a finished product. It is not signed, it has no support promise, and it updates itself only when you press the buttons (see "How to update"). Your reports are the point.
 
 ## What you need
 
@@ -31,11 +31,11 @@ The test is for finding what breaks, what confuses you, and what you wish it did
 
 ## Download
 
-1. Open the [Releases page](https://github.com/starstuff-app/starstuff-releases/releases) of this repository. You must be signed in to GitHub with the account you gave us, and you must have accepted the invitation from GitHub (it comes by email). Until you accept, GitHub shows "404 Page not found".
-2. Open the newest release, for example `v0.7.0-beta.2`.
+1. Open the [Releases page](https://github.com/starstuff-app/starstuff-releases/releases) of this repository.
+2. Open the newest release, for example `v0.7.0-beta.3`.
 3. Under Assets, download both files:
-   - `Starstuff-0.7.0-beta.2-win64.zip` is the program.
-   - `Starstuff-0.7.0-beta.2-win64.zip.sha256` is its fingerprint, used in the next step.
+   - `Starstuff-0.7.0-beta.3-win64.zip` is the program.
+   - `Starstuff-0.7.0-beta.3-win64.zip.sha256` is its fingerprint, used in the next step.
 
 Only the plain zip is ever published here. If a file has `seestar` in its name, do not use it, and tell us.
 
@@ -48,7 +48,7 @@ The fingerprint proves the file arrived whole and is the file we published. It t
 3. Run this command. Use your own zip name if it differs:
 
 ```
-certutil -hashfile Starstuff-0.7.0-beta.2-win64.zip SHA256
+certutil -hashfile Starstuff-0.7.0-beta.3-win64.zip SHA256
 ```
 
 4. It prints a line that starts with "SHA256 hash of", then one long code of 64 letters and digits, then "CertUtil: -hashfile command completed successfully."
@@ -101,6 +101,22 @@ Back up first. The Process tab buttons "Scan & Prepare" and "Prepare Needed" MOV
 
 Telescope control is not inside the zip. It is a separate library called seestarpy. It is free software written by its own author under the GPL-3.0 license, and it is not part of Starstuff. Starstuff can download it for you, but only when you press a button.
 
+> **Before you connect: Put the Seestar in Station mode first**
+>
+> A new Seestar makes its own Wi-Fi hotspot for your phone. Starstuff on this PC can only reach it when the scope has joined your home Wi-Fi, which is Station mode.
+>
+> 1. Open the Seestar app and connect to the scope.
+> 2. In the scope's settings, turn on Station mode and choose your home Wi-Fi.
+> 3. Put this PC on the same network, then press Find scope.
+
+**The key.** Since firmware 7.18 the telescope also needs a key from your own copy of the Seestar app. How to get it: see HOWTO-SEESTAR-KEY.pdf on this page, which comes with the script Get-SeestarKey.ps1. The same how-to is inside Starstuff, on the Seestar tab, and in the zip.
+
+- Starstuff contains no key and never downloads the Seestar app or the key.
+- You read the key yourself, from a copy of the Seestar app you are entitled to use, on your own phone, solely so your own telescope accepts your own commands (interoperability).
+- The key belongs to the maker of the Seestar app. Do not share it, post it or send it to anyone, including to us.
+- Seestar and ZWO are trademarks of their owner. Starstuff is an independent project and is not affiliated with or endorsed by them.
+- The script reads only the file you name, writes one file in your user folder and sends nothing. It is provided as is, without warranty.
+
 To add it:
 
 1. In Starstuff, open the Seestar tab. It says "Starstuff can't reach a Seestar yet" and shows a card about Seestar support. (The same card is in Settings under About.)
@@ -141,6 +157,7 @@ Starstuff does not send your images, file names or folder paths anywhere. This i
 | api.open-meteo.com (weather and dew-heater advice) | Automatically, while the Seestar tab is open and while a telescope is connected to Starstuff. An answer is reused for ten minutes, so there is at most one request every ten minutes. Nothing is sent if "Live Weather" is turned off in Settings or no observing location is saved. | Your saved observing location, rounded to one decimal (about 11 km). Nothing else. |
 | pypi.org (is a newer Seestar telescope add-on out?) | Automatically, about once a day: the first time you open Settings or the Updates drawer that day, or the Seestar tab while Seestar support is not installed. It happens even if you never add Seestar support. "Check for updates" on the Seestar card asks at once. A failed try is repeated no sooner than an hour later. | One plain request for the list of seestarpy releases. No ID, and nothing about you, your files or what you have installed. |
 | files.pythonhosted.org (the Seestar telescope add-on file) | When you press "Download Seestar support". Also automatically, in the background, once Seestar support is installed and PyPI lists a newer version: that file is downloaded and checked, then kept unused until you press "Update to ...". | A plain file request. Nothing about you. |
+| api.github.com (is a newer Starstuff build out, and the build itself) | Automatically, about once a day: the first time the Starstuff page loads that day, unless you turned off "Check for new builds once a day" in Settings. "Check now" under Settings, About, Updates asks at once, and a failed try is repeated no sooner than an hour later. The build itself is downloaded only when you press "Download and install". A copy of Starstuff that runs from source never asks. | One plain request for the list of Starstuff releases, naming Starstuff and its version. If you connected to the testers' page, your read-only token goes with it, to that one address and nothing else. GitHub hands the download to its own file host, which gets no token. Nothing about you, your files or your settings. |
 | The sky image servers that Aladin Lite chooses (the sky picture under the Framing panel) | When the Framing panel on the Seestar tab shows the sky. | Your browser asks for pictures of the part of the sky you are looking at (the DSS2 color survey). Starstuff's own code does not name these servers, so they are not listed by host name. |
 | tile.openstreetmap.org (map pictures in the observing-site picker) | When you open the observing-site map. | Your browser asks for map pictures of the area you look at. The request shows your IP address, your browser's name and the map area. Starstuff adds nothing to it. |
 | nominatim.openstreetmap.org (place search in the observing-site picker) | Only when you press Search in the picker. | The text you typed in the search box. Nothing else. |
@@ -148,7 +165,7 @@ Starstuff does not send your images, file names or folder paths anywhere. This i
 
 Links you click inside Starstuff, for example to siril.org, graxpert.com or GitHub, open in your browser as normal web pages. Starstuff sends nothing there.
 
-Only the weather has a switch in Settings (Live Weather). Starstuff does not check for updates to itself, has no analytics and does not upload crash reports. Nothing else is sent by Starstuff. The programs it starts (Siril, GraXpert and ffmpeg) have their own rules, and this list does not cover them.
+Two things have a switch in Settings: Live Weather, and "Check for new builds once a day", which stops the daily request for a newer Starstuff (the Check now button still works). Nothing is downloaded or installed until you press the buttons. Starstuff has no analytics and does not upload crash reports. Nothing else is sent by Starstuff. The programs it starts (Siril, GraXpert and ffmpeg) have their own rules, and this list does not cover them.
 
 ## How to report a problem
 
@@ -169,6 +186,15 @@ A good report says what you did, what you expected and what happened. It names t
 More about how reports are handled: [CONTRIBUTING-AS-A-TESTER.md](CONTRIBUTING-AS-A-TESTER.md). Everyone invited to this repository can read every issue, so do not put private details in the text of an issue.
 
 ## How to update
+
+Starstuff can update itself. Open Settings, scroll to About, and find Updates.
+
+1. Starstuff looks for a newer build about once a day. "Check now" looks at once. When one exists, the panel shows its version, its date and a "Release notes" link.
+2. Press "Download and install". Starstuff first checks that there is enough free disk space (about 4 times the zip: the zip, and the program unpacked). It downloads the zip, checks its fingerprint against the `.sha256` file before it unpacks anything, and unpacks into a new folder next to the running one, named like `Starstuff-0.7.0-beta.3-win64`. The running program is not touched. If the fingerprint does not match, the file is deleted and nothing is installed.
+3. Press "Restart into the new version". The new program starts on the same address and this page reloads. Your settings, history and add-on carry over, because they live in your data folder, not in the program folder.
+4. After the new version has started, the panel offers "Remove the old folder". It asks once and removes only the folder you switched from. It never does it by itself.
+
+The program folder must be one Starstuff can add a new folder next to. If it is not (for example under Program Files), the panel says so; move the folder somewhere you can write to, or update by hand. Builds before 0.7.0-beta.3 cannot update themselves, so going from beta.2 or earlier to beta.3 is done by hand once:
 
 1. Download the new zip and check it, the same way as above.
 2. Unzip it into a new folder. Do not unzip over the old one.
@@ -195,7 +221,8 @@ Deleting these does not undo what Starstuff did to your archive. Your stacks and
 ## More
 
 - [KNOWN-ISSUES.md](KNOWN-ISSUES.md): what we already know about.
-- [RELEASE-NOTES-0.7.0-beta.2.md](RELEASE-NOTES-0.7.0-beta.2.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.3.md](RELEASE-NOTES-0.7.0-beta.3.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.2.md](RELEASE-NOTES-0.7.0-beta.2.md): what came with the second build.
 - [RELEASE-NOTES-0.7.0-beta.1.md](RELEASE-NOTES-0.7.0-beta.1.md): what came with the first build.
 - [TEST-TERMS.md](TEST-TERMS.md): the terms of this test.
 - Contact: open an issue in this repository, or message the person who invited you.

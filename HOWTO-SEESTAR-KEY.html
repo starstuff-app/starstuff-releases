@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Starstuff: getting the Seestar connection key</title>
+<style>
+  @page { size: A4; margin: 18mm 18mm 20mm 18mm; }
+  body { font-family: "Segoe UI", Roboto, Arial, sans-serif; color: #1b1b1f; font-size: 11.5pt; line-height: 1.45; margin: 0; }
+  h1 { font-size: 22pt; margin: 0 0 4pt 0; font-weight: 600; }
+  .sub { color: #5c5f66; margin: 0 0 16pt 0; }
+  h2 { font-size: 14.5pt; margin: 18pt 0 6pt 0; font-weight: 600; border-bottom: 1px solid #d9dbe3; padding-bottom: 3pt; }
+  p { margin: 0 0 8pt 0; }
+  ol, ul { margin: 0 0 8pt 0; padding-left: 20pt; }
+  li { margin-bottom: 5pt; }
+  code, pre { font-family: Consolas, "Cascadia Mono", monospace; font-size: 10pt; }
+  pre { background: #f2f3f7; border: 1px solid #d9dbe3; border-radius: 6pt; padding: 8pt 10pt; white-space: pre-wrap; word-break: break-all; margin: 4pt 0 10pt 0; }
+  code { background: #f2f3f7; padding: 1pt 4pt; border-radius: 3pt; }
+  .box { border: 1px solid #b7c3e6; background: #eef2fc; border-radius: 8pt; padding: 9pt 12pt; margin: 8pt 0 12pt 0; }
+  .warn { border-color: #e6c3a6; background: #fdf3ea; }
+  .box b { display: block; margin-bottom: 3pt; }
+  table { border-collapse: collapse; width: 100%; margin: 4pt 0 10pt 0; font-size: 10.5pt; }
+  th, td { border: 1px solid #d9dbe3; padding: 5pt 7pt; vertical-align: top; text-align: left; }
+  th { background: #f2f3f7; font-weight: 600; }
+  .small { color: #5c5f66; font-size: 9.5pt; }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<h1>Starstuff: getting the Seestar connection key</h1>
+<p class="sub">For testers of Starstuff 0.7.0-beta. About 15 minutes. A Windows PC and your own Android phone with the Seestar app.</p>
+
+<h2>Why you need this</h2>
+<p>Since Seestar firmware 7.18, the telescope accepts commands only from software that proves itself with a key. The official Seestar phone app carries that key inside it. Starstuff's telescope add-on needs a copy of the key from <em>your own</em> copy of the Seestar app for Android. Without it, Starstuff can find the scope but every command is refused, and the Seestar tab shows "No RSA key is configured".</p>
+<p>The key is copied to one file on your PC and never leaves it. Starstuff does not upload it, and the script below does not connect to anything.</p>
+
+<div class="box warn">
+<b>Please read this first</b>
+<ul style="margin:0">
+  <li>Starstuff contains no key and never downloads the Seestar app or the key.</li>
+  <li>You read the key yourself, from a copy of the Seestar app you are entitled to use, on your own phone, solely so your own telescope accepts your own commands (interoperability).</li>
+  <li>The key belongs to the maker of the Seestar app. Do not share it, post it or send it to anyone, including to us.</li>
+  <li>Seestar and ZWO are trademarks of their owner. Starstuff is an independent project and is not affiliated with or endorsed by them.</li>
+  <li>The script reads only the file you name, writes one file in your user folder and sends nothing. It is provided as is, without warranty.</li>
+</ul>
+</div>
+
+<div class="box">
+<b>What you need</b>
+<ul style="margin:0">
+  <li>Starstuff installed, with the telescope add-on downloaded (Seestar tab, "Download Seestar support").</li>
+  <li>The current Seestar app for <strong>Android</strong>, exported from your own phone as a package file: a <code>.apk</code> or <code>.xapk</code> file, usually 150 to 400 MB. The iPhone app does not work for this.</li>
+  <li>The small script <code>Get-SeestarKey.ps1</code> that came with this guide.</li>
+</ul>
+</div>
+
+<h2>Step 1: get the Seestar app package file</h2>
+<p>Export the app from your own Android phone, the one you already use with the Seestar:</p>
+<ol>
+  <li>On the phone, install an "APK extractor" app from the Play Store (search for <em>APK extractor</em>; several free ones exist and any will do).</li>
+  <li>Open it, find <strong>Seestar</strong> in its list and choose Extract or Export. If it offers a choice, pick the bundle form (<code>.xapk</code> or <code>.apks</code>) so that all parts of the app are in one file.</li>
+  <li>Copy the file to the PC: USB cable, a cloud folder, or send it to yourself.</li>
+</ol>
+<p class="small">Use the current Seestar app. The file is your own copy of the app, as published by its maker. You are only reading the key out of a copy you are entitled to use.</p>
+
+<h2>Step 2: run the script</h2>
+<ol>
+  <li>Put <code>Get-SeestarKey.ps1</code> and the package file in the same folder, for example your Downloads folder.</li>
+  <li>Open that folder in File Explorer, right-click an empty spot and choose <strong>Open in Terminal</strong> (on older Windows: hold Shift, right-click, <strong>Open PowerShell window here</strong>).</li>
+  <li>Type this line and press Enter. Replace <code>Seestar.apk</code> with the real name of your file (for an <code>.xapk</code>, use that name):</li>
+</ol>
+<pre>powershell -ExecutionPolicy Bypass -File .\Get-SeestarKey.ps1 ".\Seestar.apk"</pre>
+<p>After a few seconds it prints:</p>
+<pre>Done. The key is saved at &lt;your user folder&gt;\.seestarpy\seestar.pem
+Now start Starstuff (or restart it if it is running) and open the Seestar tab.</pre>
+<p>That is the whole job. The folder <code>.seestarpy</code> in your user folder now holds one small text file, <code>seestar.pem</code>.</p>
+
+<h2>Step 3: check it in Starstuff</h2>
+<ol>
+  <li>Start Starstuff. If it was already running, close its console window and start it again.</li>
+  <li>Open the <strong>Seestar</strong> tab. The "No RSA key is configured" warning is gone.</li>
+  <li>Put the Seestar in <strong>Station mode</strong> (see the box below), then press <strong>Find scope</strong> and connect.</li>
+  <li>The Firmware panel on the Seestar tab shows the key's fingerprint, a short code. That is how you know Starstuff is using it.</li>
+</ol>
+
+<div class="box warn">
+<b>The Seestar must be in Station mode</b>
+<p style="margin:0">Out of the box the Seestar runs its own Wi-Fi and your phone joins it. A PC cannot reach it that way. In the Seestar phone app, open the scope's settings, turn on <strong>Station mode</strong> and choose your home Wi-Fi. Put the PC on the same network. Then press Find scope in Starstuff.</p>
+</div>
+
+<h2>If something goes wrong</h2>
+<table>
+<tr><th style="width:38%">What you see</th><th>What it means and what to do</th></tr>
+<tr><td>"running scripts is disabled on this system"</td><td>Use the exact command line above: the <code>-ExecutionPolicy Bypass</code> part allows this one script to run. It changes nothing else on your PC.</td></tr>
+<tr><td>"No key found in this package"</td><td>The file is not the Android Seestar app, or it is only one part of it. Export the bundle form (<code>.xapk</code> or <code>.apks</code>) from your own phone again.</td></tr>
+<tr><td>"No such file"</td><td>The file name is mistyped, or the script and the package are not in the same folder. Keep the quotes around the name if it has spaces.</td></tr>
+<tr><td>Starstuff still says "No RSA key is configured"</td><td>Starstuff reads the key when it starts. Close its console window and start it again. Then check that <code>%USERPROFILE%\.seestarpy\seestar.pem</code> exists.</td></tr>
+<tr><td>Starstuff connects, but commands are refused</td><td>The key came from a very old or a modified app. Export the app from your phone again, after updating it to the current Seestar app.</td></tr>
+<tr><td>You want the key somewhere else</td><td>Set the environment variable <code>SEESTAR_KEY_PATH</code> to the file's full path before starting Starstuff.</td></tr>
+</table>
+
+<p class="small">Keep <code>seestar.pem</code> to yourself: do not post it or send it to anyone, including to us. It belongs to the maker of the Seestar app and is not part of Starstuff. If a Seestar firmware update changes the key, Starstuff will say so on the Seestar tab, and you repeat these steps with the then-current app.</p>
+
+<h2>What the script does, for the curious</h2>
+<p>The app package is a zip file. Inside it, the file <code>lib/arm64-v8a/libopenssllib.so</code> holds the key as plain text between <code>-----BEGIN PRIVATE KEY-----</code> and <code>-----END PRIVATE KEY-----</code>. The script opens the zip (and any <code>.apk</code> inside an <code>.xapk</code>), finds that text and writes it to <code>seestar.pem</code>. It is about 60 lines of PowerShell and you can read it in Notepad. It uses nothing but what Windows already has; no Python, no extra tools.</p>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-# Known issues in 0.7.0-beta.2
+# Known issues in 0.7.0-beta.3
 
 Checked against the code of this build. Tell us if you hit something that is not listed.
 
@@ -6,12 +6,12 @@ Checked against the code of this build. Tell us if you hit something that is not
 
 | Item | What it means for you | What to do |
 |---|---|---|
-| Code signing | The program is not signed, so Windows shows "Windows protected your PC" on every new build. | Click "More info", then "Run anyway". Check the SHA-256 fingerprint first (see the README). |
+| Code signing | The program is not code-signed (that is separate from the signature on the update file), so Windows shows "Windows protected your PC" on every new build. | Click "More info", then "Run anyway". Check the SHA-256 fingerprint first (see the README). |
 | Siril | Not included. Stacking needs it. | Install Siril 1.4 or newer from https://siril.org. In Settings, "Siril CLI Path" lets you point to it. |
 | GraXpert | Not included. Optional. Without it a stack still finishes, but without the extra clean-up. | Install it from https://www.graxpert.com if you want it. |
 | Video and timelapse export | Needs ffmpeg, which is not included. | Install ffmpeg so that it is on your PATH. |
 | Telescope control | Not in the zip. It is an optional download inside the app. | On the Seestar tab press "Download Seestar support". See the README. |
-| Automatic updates | None. | Download the next build from this page and unzip it into a new folder. |
+| Updating in the program is new and unproven | Settings, About, Updates can find, download and install a newer build. This build was installed by hand, so the updater has not yet updated a real copy. It refuses a build whose signature or fingerprint does not match. | Try it when the next build is out, and tell us what the panel says. If it fails, download the zip from this page and unzip it into a new folder (README, "How to update"). |
 
 ## Needs internet
 
@@ -27,9 +27,9 @@ Weather advice (Seestar tab), place search and the map in the observing-site pic
 | The archive drive is unplugged or renamed | The "Set up Starstuff" window opens again, because the folder does not exist. | Reconnect the drive, or give the new folder. |
 | The data folder is on a drive that is not connected | Starstuff does not start as usual. It shows a screen that names the folder and offers only to choose a folder. It never starts with an empty folder in its place. | Connect the drive and start Starstuff again. A folder on a network or removable drive is the reason the set-up asks for a tick. |
 | Port 8100 is in use | The console prints "port 8100 is already in use" and Starstuff exits. There is no automatic fallback to another port. | Close the other copy, or set the `STARSTUFF_PORT` environment variable to another number such as 8101 before you start. |
-| Starstuff cannot restart itself | There is no restart button that works. | Close the console window and start `Starstuff.exe` again. Closing only the browser tab leaves Starstuff running. |
 | 2x drizzle has limits | 2x drizzle does not work with "Split LP into Ha + OIII" or on a mosaic, and it needs about 8 times the disk space a normal run needs for its aligned frames. Starstuff says so before the run starts. | Use a normal stack for those cases, or free disk space first. |
 | Sub ratings are not calibrated | The 0 to 100 rating and the word on the Process tab, under Session history, are a first guess. | Treat them as a hint. Nothing is ever deleted because of a rating. Tell us when a rating looks wrong. |
+| Tidy stack files moves your older stacks | On the Prepare tab, "Tidy stack files" first shows what would move. "Move" then puts each older stack and its files into a dated folder and renames them. Your subs in `lights` are not touched and nothing is deleted. It is new and has been tried on few archives. | Try it on a copy of one target folder first. "Undo" puts every file back. A file it cannot name is listed and left where it is. |
 | Held mount moves are new and unproven on a real scope | With the telescope add-on, pressing and holding an arrow keeps the mount moving until you let go. The team has not yet checked the stop on release on a real telescope. A refused stop shows a warning. | Stay at the telescope. The "Stop slew" button and the Seestar phone app can stop a move. Tell us what happened. |
 | An older mosaic still shows seams | The seam fix applies when you stack. | Re-stack the mosaic with the Mosaic preset. |
 | Older nights say "Not rated yet" | Only nights that went through a Siril Register run since this feature arrived get a rating. | New runs are rated. Tell us if a new run is not. |
