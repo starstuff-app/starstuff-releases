@@ -25,17 +25,17 @@ The test is for finding what breaks, what confuses you, and what you wish it did
 | Siril 1.4 or newer | Free. Get it from https://siril.org and install it first. Starstuff starts it for you. It usually lives in `C:\Program Files\Siril\bin`. If Starstuff cannot find it, set the path in Settings under "Siril CLI Path". |
 | A folder of Seestar captures | One folder that contains a folder called `01_Capture`, with your target folders inside it. |
 | A web browser | Starstuff opens your default browser. |
-| Internet | Optional. Weather, news, sky pictures and the telescope add-on need it. See "What Starstuff contacts on the internet" below. |
+| Internet | Optional. Weather, news, sky pictures, plate solving (unless Siril has a local star catalog) and the telescope add-on need it. See "What Starstuff contacts on the internet" below. |
 | GraXpert | Optional. Free, from https://www.graxpert.com. It removes background glow and noise after a stack. |
 | ffmpeg | Optional. Needed only for video and timelapse export. It is not included. |
 
 ## Download
 
 1. Open the [Releases page](https://github.com/starstuff-app/starstuff-releases/releases) of this repository.
-2. Open the newest release, for example `v0.7.0-beta.4`.
+2. Open the newest release, for example `v0.7.0-beta.5`.
 3. Under Assets, download both files:
-   - `Starstuff-0.7.0-beta.4-win64.zip` is the program.
-   - `Starstuff-0.7.0-beta.4-win64.zip.sha256` is its fingerprint, used in the next step.
+   - `Starstuff-0.7.0-beta.5-win64.zip` is the program.
+   - `Starstuff-0.7.0-beta.5-win64.zip.sha256` is its fingerprint, used in the next step.
 
 Only the plain zip is ever published here. If a file has `seestar` in its name, do not use it, and tell us.
 
@@ -48,7 +48,7 @@ The fingerprint proves the file arrived whole and is the file we published. It t
 3. Run this command. Use your own zip name if it differs:
 
 ```
-certutil -hashfile Starstuff-0.7.0-beta.4-win64.zip SHA256
+certutil -hashfile Starstuff-0.7.0-beta.5-win64.zip SHA256
 ```
 
 4. It prints a line that starts with "SHA256 hash of", then one long code of 64 letters and digits, then "CertUtil: -hashfile command completed successfully."
@@ -64,7 +64,7 @@ If they differ, delete the zip, download it again, and check again. If they stil
 3. A black console window opens, and your browser opens Starstuff a moment later. If the browser does not open, the console prints an address you can type in by hand.
 4. Leave the console window open. Closing it stops Starstuff. Closing only the browser tab does not stop it.
 
-Starstuff does not write inside its own folder. Your settings and other data go to your user profile (see "Your data"). You can put the program folder anywhere you can read from. Program Files is not needed.
+Starstuff keeps your settings and other data in your user profile, not in its own folder (see "Your data"). The one exception is the gallery previews when you leave Local Processing Path blank: they are cached inside the program folder. You can put the program folder anywhere you can write to. Program Files is not needed.
 
 If you see "port 8100 is already in use", another copy of Starstuff or another program is running. Close it, or set the `STARSTUFF_PORT` environment variable to another number such as 8101 before you start.
 
@@ -93,7 +93,7 @@ On the first start Starstuff shows a window called "Set up Starstuff". It asks f
 
 After the last screen, which says "Finish", a "Checks" screen shows whether Siril was found and is new enough. Press Done. You cannot skip the set-up. You can change every answer later in Settings (the gear icon in the header).
 
-The user guide is in the app: open Settings, scroll to About, press "User guide". It opens as a normal page with pictures. It starts with "Your first 10 minutes".
+The user guide is in the app: open Settings, scroll to About, press "User guide". It opens in a new browser tab: a PDF when the docs folder next to Starstuff.exe has one, otherwise the guide as a normal page with pictures. Its first section is "Your first 10 minutes".
 
 Back up first. The Process tab buttons "Scan & Prepare" and "Prepare Needed" MOVE your raw `Light_*.fit` files into a `lights` folder inside each target folder. Nothing is deleted or renamed by default. For your first run, copy one target folder and test with the copy. The "Scan" button only looks.
 
@@ -141,31 +141,36 @@ What it stores, and where:
 | What | Where |
 |---|---|
 | Settings, scan history, saved state, the log file | `%APPDATA%\Starstuff`, unless you chose another data folder in the set-up or in Settings (the log is in its `logs` folder). An older install may use `%APPDATA%\Cosmos`, which keeps working. |
-| Rebuildable caches (gallery previews, news, scan results) | Under your Local Processing Path in a folder named `.cosmos_cache`, or in `%APPDATA%\Starstuff` if you left that path blank. |
+| Rebuildable caches (news, scan results, the sky index, the archive index, Siril logs) | Under your Local Processing Path in a folder named `.cosmos_cache`, or in `%APPDATA%\Starstuff` if you left that path blank, unless you set Cache Root Override in Settings, Advanced, which wins over both. |
+| Gallery previews (rebuildable) | Under your Local Processing Path in `.cosmos_cache\gallery`. If you left that path blank, they do not go to the data folder: they go to a `.cache\gallery` folder inside the `webapp` folder of the program folder. Settings, "Gallery Preview Cache" sets another place. |
 | Telescope add-on | `%LOCALAPPDATA%\Starstuff\addons` |
+| A small lock file that keeps two copies of Starstuff from holding the telescope at the same time | `%LOCALAPPDATA%\Cosmos\scope.lock`, with a note file beside it. It is written when the telescope add-on is loaded, and the folder keeps its older name. |
+| A new program folder after an update from Settings, About, Updates | `Starstuff-<version>-win64`, beside the folder that was running. |
 | Report zips you save | Your Downloads folder |
 | Your stacks, and the raw files that Scan & Prepare moves | Inside your own archive folders |
 
 ### What Starstuff contacts on the internet
 
-Starstuff does not send your images, file names or folder paths anywhere. This is every place it contacts, when, and what leaves your PC. Every request also shows your IP address, as any web request does. A request that Starstuff makes itself names "Starstuff" and its version. Three of the requests below are made by your web browser, not by Starstuff, and carry your browser's own name instead.
+Starstuff does not send your images, file names or folder paths anywhere. This is every place it contacts, when, and what leaves your PC. Every request also shows your IP address, as any web request does. A request that Starstuff makes itself names "Starstuff" and its version. Four of the requests below are made by your web browser, not by Starstuff: the sky viewer script, the sky pictures, the map pictures and the location question of the Auto-Detect button. They carry what your browser chooses to send, including its own name.
 
 | Service | When | What is sent |
 |---|---|---|
 | www.zwoastro.com, siril.org, gitlab.com, github.com (news and release feeds for the Updates drawer) | Automatically, from the first time the page loads and then in the background while Starstuff runs. Each feed is asked again after one or two hours. "Refresh now" in the Updates drawer asks all of them at once. | A plain feed request for each of five feeds (ZWO news, Siril releases, Siril news, GraXpert releases and a community Seestar feed). It repeats the version label the feed gave last time, so an unchanged feed is not downloaded again. Nothing about you. |
 | aladin.cds.unistra.fr (the Aladin Lite sky viewer script) | Automatically, each time the Starstuff page loads. | Your browser asks for the script. The request shows your IP address and your browser's name. Starstuff adds nothing to it. |
-| api.open-meteo.com (weather and dew-heater advice) | Automatically, while the Seestar tab is open and while a telescope is connected to Starstuff. An answer is reused for ten minutes, so there is at most one request every ten minutes. Nothing is sent if "Live Weather" is turned off in Settings or no observing location is saved. | Your saved observing location, rounded to one decimal (about 11 km). Nothing else. |
+| api.open-meteo.com (weather and dew-heater advice) | Automatically. While the Seestar tab or the Sky view in the Planetarium (the button labeled "Sky") is on screen, your browser asks Starstuff for the weather once a minute, with or without a telescope; while a telescope is connected, Starstuff's own check of the scope asks as well, for the dew-heater advice. The Calendar tab asks when it shows a month, and adds the cloud forecast for the next seven nights, so the answer covers eight days. Starstuff keeps a good answer for ten minutes and reuses it, so a working connection costs about one request to the weather service every ten minutes. A failed answer is not kept, so the next ask tries again: about once a minute from your browser, and while a telescope is connected also from Starstuff's own check of the scope, about every 5 seconds (every second while a go-to or a polar alignment runs). Nothing is sent if "Live Weather" is turned off in Settings or no observing location is saved. | Your saved observing location, rounded to one decimal (about 11 km), in the web address of the request, next to the names of the weather values it asks for (temperature, humidity, dew point and cloud cover). Nothing else. |
 | pypi.org (is a newer Seestar telescope add-on out?) | Automatically, about once a day: the first time you open Settings or the Updates drawer that day, or the Seestar tab while Seestar support is not installed. It happens even if you never add Seestar support. "Check for updates" on the Seestar card asks at once. A failed try is repeated no sooner than an hour later. | One plain request for the list of seestarpy releases. No ID, and nothing about you, your files or what you have installed. |
 | files.pythonhosted.org (the Seestar telescope add-on file) | When you press "Download Seestar support". Also automatically, in the background, once Seestar support is installed and PyPI lists a newer version: that file is downloaded and checked, then kept unused until you press "Update to ...". | A plain file request. Nothing about you. |
-| api.github.com (is a newer Starstuff build out, and the build itself) | Automatically, about once a day: the first time the Starstuff page loads that day, unless you turned off "Check for new builds once a day" in Settings. "Check now" under Settings, About, Updates asks at once, and a failed try is repeated no sooner than an hour later. The build itself is downloaded only when you press "Download and install". A copy of Starstuff that runs from source never asks. | One plain request for the list of Starstuff releases, naming Starstuff and its version. If you connected to the testers' page, your read-only token goes with it, to that one address and nothing else. GitHub hands the download to its own file host, which gets no token. Nothing about you, your files or your settings. |
-| The sky image servers that Aladin Lite chooses (the sky picture under the Framing panel) | When the Framing panel on the Seestar tab shows the sky. | Your browser asks for pictures of the part of the sky you are looking at (the DSS2 color survey). Starstuff's own code does not name these servers, so they are not listed by host name. |
+| api.github.com (is a newer Starstuff build out, and the build itself) | Automatically, about once a day: the first time the Starstuff page loads that day, unless you turned off "Check for new builds once a day" in Settings. "Check now" under Settings, About, Updates asks at once, and a failed try is repeated no sooner than an hour later. The build itself is downloaded only when you press "Download and install". A copy of Starstuff that runs from source asks too, read only: it looks at the list and never downloads or installs a build. | One plain request for the list of Starstuff releases, naming Starstuff and its version. If you connected to the testers' page, your read-only token goes with it, to that one address and nothing else. GitHub hands the download to its own file host, which gets no token. Nothing about you, your files or your settings. |
+| The sky image servers that Aladin Lite chooses (the sky picture in the Planetarium) | When you press the Sky button in the Planetarium and the real sky picture shows. | Your browser asks for pictures of the part of the sky you are looking at (the DSS2 color survey). Starstuff's own code does not name these servers, so they are not listed by host name. |
 | tile.openstreetmap.org (map pictures in the observing-site picker) | When you open the observing-site map. | Your browser asks for map pictures of the area you look at. The request shows your IP address, your browser's name and the map area. Starstuff adds nothing to it. |
 | nominatim.openstreetmap.org (place search in the observing-site picker) | Only when you press Search in the picker. | The text you typed in the search box. Nothing else. |
+| Your browser's own location service (the Auto-Detect button beside the observing location on the Tonight page) | Only when you press Auto-Detect. Your browser asks you for permission first. | What it sends is decided by your browser, not by Starstuff. Starstuff adds nothing to it and receives only the position the browser hands back, which fills the latitude and longitude boxes on the Tonight page. |
 | cdsweb.u-strasbg.fr (the CDS Sesame name lookup, made by the Seestar add-on) | Only when Seestar support is installed and you press Go in the "Go to a target" panel on the Seestar tab with a name but no RA and Dec, and the name is not the Moon or a planet. | The target name you typed. This request is made by the add-on library, not by Starstuff's own code. |
+| Siril's online star catalog (plate solving) | Automatically after a run, and when you press "Plate-solve this stack" or "Solve again", unless Siril has a local star catalog installed. Siril asks, not Starstuff; which server is Siril's choice. | The sky position and field size from the stack's header, to find the stars. Not the picture, file names or folder paths. |
 
 Links you click inside Starstuff, for example to siril.org, graxpert.com or GitHub, open in your browser as normal web pages. Starstuff sends nothing there.
 
-Two things have a switch in Settings: Live Weather, and "Check for new builds once a day", which stops the daily request for a newer Starstuff (the Check now button still works). Nothing is downloaded or installed until you press the buttons. Starstuff has no analytics and does not upload crash reports. Nothing else is sent by Starstuff. The programs it starts (Siril, GraXpert and ffmpeg) have their own rules, and this list does not cover them.
+Two things have a switch in Settings: Live Weather, and "Check for new builds once a day", which stops the daily request for a newer Starstuff (the Check now button still works). Nothing is installed, and no Starstuff build is downloaded, until you press the buttons. Starstuff has no analytics and does not upload crash reports. Nothing else is sent by Starstuff. The programs it starts (Siril, GraXpert and ffmpeg) have their own rules, and this list does not cover them, except for the plate-solving request above, which Starstuff starts on its own.
 
 ## How to report a problem
 
@@ -187,10 +192,10 @@ More about how reports are handled: [CONTRIBUTING-AS-A-TESTER.md](CONTRIBUTING-A
 
 ## How to update
 
-Starstuff can update itself. Open Settings, scroll to About, and find Updates. 0.7.0-beta.4 is the first build to install this way: if you run 0.7.0-beta.3, use the steps below. The manual way, further down, is the fallback if the panel does not work.
+Starstuff can update itself. Open Settings, scroll to About, and find Updates. If you run 0.7.0-beta.3 or 0.7.0-beta.4, use the steps below to reach 0.7.0-beta.5. The manual way, further down, is the fallback if the panel does not work.
 
 1. Starstuff looks for a newer build about once a day. "Check now" looks at once. When one exists, the panel shows its version, its date and a "Release notes" link.
-2. Press "Download and install". Starstuff first checks that there is enough free disk space (about 4 times the zip: the zip, and the program unpacked). It downloads the zip, checks its fingerprint against the `.sha256` file before it unpacks anything, and unpacks into a new folder next to the running one, named like `Starstuff-0.7.0-beta.4-win64`. The running program is not touched. If the fingerprint does not match, the file is deleted and nothing is installed.
+2. Press "Download and install". Starstuff first checks that there is enough free disk space (about 4 times the zip: the zip, and the program unpacked). It downloads the zip, checks its fingerprint against the `.sha256` file before it unpacks anything, and unpacks into a new folder next to the running one, named like `Starstuff-0.7.0-beta.5-win64`. The running program is not touched. If the fingerprint does not match, the file is deleted and nothing is installed.
 3. Press "Restart into the new version". The new program starts on the same address and this page reloads. Your settings, history and add-on carry over, because they live in your data folder, not in the program folder.
 4. After the new version has started, the panel offers "Remove the old folder". It asks once and removes only the folder you switched from. It never does it by itself.
 
@@ -207,12 +212,14 @@ If a release note says a data format changed, it will also say what to back up.
 
 Close Starstuff first (close the console window). Then delete:
 
-1. The program folder you unzipped, for example `C:\Starstuff-test`.
+1. The program folder you unzipped, for example `C:\Starstuff-test`. If you left Local Processing Path blank, the gallery previews are inside it, in `webapp\.cache\gallery`, and go with it.
 2. `%APPDATA%\Starstuff` (and `%APPDATA%\Cosmos` if it exists).
 3. `%LOCALAPPDATA%\Starstuff` (this holds the telescope add-on and a small note of which data folder you chose).
-4. The `.cosmos_cache` folder inside your Local Processing Path, if you set one.
-5. If you chose a different data folder in the first-run setup or in Settings, that folder too. Settings shows where it is. If you moved it, check the old folder as well.
-6. Any `Starstuff-feedback-*.zip` files in your Downloads folder.
+4. `%LOCALAPPDATA%\Cosmos`, if it exists. It is a small folder with a lock file (`scope.lock`, and a note file beside it) that keeps two copies of Starstuff from holding the telescope at the same time. It keeps its older name on purpose.
+5. The `.cosmos_cache` folder inside your Local Processing Path, if you set one, or the folder you set as Cache Root Override. Also the folder you set under "Gallery Preview Cache" in Settings, if you set one.
+6. If you updated from Settings, About, Updates, the other program folders: each update unpacks a new `Starstuff-<version>-win64` folder beside the one that was running. "Remove the old folder" in the panel removes only the one you switched from, so delete the others by hand.
+7. If you chose a different data folder in the first-run setup or in Settings, that folder too. Settings shows where it is. If you moved it, check the old folder as well.
+8. Any `Starstuff-feedback-*.zip` files in your Downloads folder.
 
 To paste a `%...%` path, type it into the File Explorer address bar and press Enter.
 
@@ -221,7 +228,8 @@ Deleting these does not undo what Starstuff did to your archive. Your stacks and
 ## More
 
 - [KNOWN-ISSUES.md](KNOWN-ISSUES.md): what we already know about.
-- [RELEASE-NOTES-0.7.0-beta.4.md](RELEASE-NOTES-0.7.0-beta.4.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.5.md](RELEASE-NOTES-0.7.0-beta.5.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.4.md](RELEASE-NOTES-0.7.0-beta.4.md): what came with the fourth build.
 - [RELEASE-NOTES-0.7.0-beta.3.md](RELEASE-NOTES-0.7.0-beta.3.md): what came with the third build.
 - [RELEASE-NOTES-0.7.0-beta.2.md](RELEASE-NOTES-0.7.0-beta.2.md): what came with the second build.
 - [RELEASE-NOTES-0.7.0-beta.1.md](RELEASE-NOTES-0.7.0-beta.1.md): what came with the first build.

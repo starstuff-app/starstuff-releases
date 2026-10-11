@@ -10,10 +10,10 @@ SHA-256 of `Starstuff-0.7.0-beta.4-win64.zip`: `ae881c374ecbd1c7a00c1c169a4844c2
 
 ### The connection to the Seestar
 
-- One connection, not two. The Seestar accepts only a few connections at once, and the phone app needs one of them. Starstuff used to hold one connection all the time and open a second one about once a minute. It now keeps a single connection, and opens the second one only while the Seestar tab is on screen or while a timelapse or star-trails capture you started is running.
+- One connection, not two. The Seestar accepts only a few connections at once, and the phone app needs one of them. Starstuff used to hold one connection all the time and open a second one about once a minute. It now keeps a single connection, and opens the second one only while the Seestar tab or the camera picture in the Planetarium is on screen, or while a timelapse or star-trails capture you started is running.
 - Disconnect holds. After you press Disconnect, Starstuff does not reconnect, fetch pictures or keep a video stream open until you press Connect. This is remembered when you restart Starstuff.
 - It says what the scope did. When the scope refuses, the chip reads "No free connection on the scope" or "The scope closed the connection", Details shows the scope's own message, and the note shows how many connections the scope reports and when Starstuff will try again. Starstuff no longer guesses which other app is connected, and it waits longer between tries.
-- Hand-over. To hand the scope to the Seestar phone app, press Disconnect in Starstuff's header and then open the phone app. To take it back, close the phone app and press Connect. A run that is already on the scope keeps going while you swap.
+- Hand-over. To hand the scope to the Seestar phone app, click the connection button at the top of the Seestar tab, press Disconnect and then open the phone app. To take it back, close the phone app and press Connect. A run that is already on the scope keeps going while you swap.
 - Not promised: both connected at the same time. Whether the phone app and Starstuff fit together depends on the scope's own limit. On our scope with firmware 9.31 they did not fit before this build; we have not yet tested this build at a scope. Tell us what you see.
 
 ### Processing
