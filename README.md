@@ -32,10 +32,10 @@ The test is for finding what breaks, what confuses you, and what you wish it did
 ## Download
 
 1. Open the [Releases page](https://github.com/starstuff-app/starstuff-releases/releases) of this repository.
-2. Open the newest release, for example `v0.7.0-beta.3`.
+2. Open the newest release, for example `v0.7.0-beta.4`.
 3. Under Assets, download both files:
-   - `Starstuff-0.7.0-beta.3-win64.zip` is the program.
-   - `Starstuff-0.7.0-beta.3-win64.zip.sha256` is its fingerprint, used in the next step.
+   - `Starstuff-0.7.0-beta.4-win64.zip` is the program.
+   - `Starstuff-0.7.0-beta.4-win64.zip.sha256` is its fingerprint, used in the next step.
 
 Only the plain zip is ever published here. If a file has `seestar` in its name, do not use it, and tell us.
 
@@ -48,7 +48,7 @@ The fingerprint proves the file arrived whole and is the file we published. It t
 3. Run this command. Use your own zip name if it differs:
 
 ```
-certutil -hashfile Starstuff-0.7.0-beta.3-win64.zip SHA256
+certutil -hashfile Starstuff-0.7.0-beta.4-win64.zip SHA256
 ```
 
 4. It prints a line that starts with "SHA256 hash of", then one long code of 64 letters and digits, then "CertUtil: -hashfile command completed successfully."
@@ -187,14 +187,14 @@ More about how reports are handled: [CONTRIBUTING-AS-A-TESTER.md](CONTRIBUTING-A
 
 ## How to update
 
-Starstuff can update itself. Open Settings, scroll to About, and find Updates.
+Starstuff can update itself. Open Settings, scroll to About, and find Updates. 0.7.0-beta.4 is the first build to install this way: if you run 0.7.0-beta.3, use the steps below. The manual way, further down, is the fallback if the panel does not work.
 
 1. Starstuff looks for a newer build about once a day. "Check now" looks at once. When one exists, the panel shows its version, its date and a "Release notes" link.
-2. Press "Download and install". Starstuff first checks that there is enough free disk space (about 4 times the zip: the zip, and the program unpacked). It downloads the zip, checks its fingerprint against the `.sha256` file before it unpacks anything, and unpacks into a new folder next to the running one, named like `Starstuff-0.7.0-beta.3-win64`. The running program is not touched. If the fingerprint does not match, the file is deleted and nothing is installed.
+2. Press "Download and install". Starstuff first checks that there is enough free disk space (about 4 times the zip: the zip, and the program unpacked). It downloads the zip, checks its fingerprint against the `.sha256` file before it unpacks anything, and unpacks into a new folder next to the running one, named like `Starstuff-0.7.0-beta.4-win64`. The running program is not touched. If the fingerprint does not match, the file is deleted and nothing is installed.
 3. Press "Restart into the new version". The new program starts on the same address and this page reloads. Your settings, history and add-on carry over, because they live in your data folder, not in the program folder.
 4. After the new version has started, the panel offers "Remove the old folder". It asks once and removes only the folder you switched from. It never does it by itself.
 
-The program folder must be one Starstuff can add a new folder next to. If it is not (for example under Program Files), the panel says so; move the folder somewhere you can write to, or update by hand. Builds before 0.7.0-beta.3 cannot update themselves, so going from beta.2 or earlier to beta.3 is done by hand once:
+The program folder must be one Starstuff can add a new folder next to. If it is not (for example under Program Files), the panel says so; move the folder somewhere you can write to, or update by hand. Builds before 0.7.0-beta.3 cannot update themselves, so going from beta.2 or earlier is done by hand once. The same steps are the fallback if the panel fails:
 
 1. Download the new zip and check it, the same way as above.
 2. Unzip it into a new folder. Do not unzip over the old one.
@@ -221,7 +221,8 @@ Deleting these does not undo what Starstuff did to your archive. Your stacks and
 ## More
 
 - [KNOWN-ISSUES.md](KNOWN-ISSUES.md): what we already know about.
-- [RELEASE-NOTES-0.7.0-beta.3.md](RELEASE-NOTES-0.7.0-beta.3.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.4.md](RELEASE-NOTES-0.7.0-beta.4.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.3.md](RELEASE-NOTES-0.7.0-beta.3.md): what came with the third build.
 - [RELEASE-NOTES-0.7.0-beta.2.md](RELEASE-NOTES-0.7.0-beta.2.md): what came with the second build.
 - [RELEASE-NOTES-0.7.0-beta.1.md](RELEASE-NOTES-0.7.0-beta.1.md): what came with the first build.
 - [TEST-TERMS.md](TEST-TERMS.md): the terms of this test.

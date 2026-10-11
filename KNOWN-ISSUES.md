@@ -1,4 +1,4 @@
-# Known issues in 0.7.0-beta.3
+# Known issues in 0.7.0-beta.4
 
 Checked against the code of this build. Tell us if you hit something that is not listed.
 
@@ -11,7 +11,7 @@ Checked against the code of this build. Tell us if you hit something that is not
 | GraXpert | Not included. Optional. Without it a stack still finishes, but without the extra clean-up. | Install it from https://www.graxpert.com if you want it. |
 | Video and timelapse export | Needs ffmpeg, which is not included. | Install ffmpeg so that it is on your PATH. |
 | Telescope control | Not in the zip. It is an optional download inside the app. | On the Seestar tab press "Download Seestar support". See the README. |
-| Updating in the program is new and unproven | Settings, About, Updates can find, download and install a newer build. This build was installed by hand, so the updater has not yet updated a real copy. It refuses a build whose signature or fingerprint does not match. | Try it when the next build is out, and tell us what the panel says. If it fails, download the zip from this page and unzip it into a new folder (README, "How to update"). |
+| Updating in the program is new | Settings, About, Updates can find, download and install a newer build. The updater was proven on real builds by the team, but going from beta.3 to beta.4 is the first time testers use it. It refuses a build whose signature or fingerprint does not match. | Try it: press "Check now", then "Download and install", and tell us what the panel says at each step. If it fails, download the zip from this page and unzip it into a new folder (README, "How to update").
 
 ## Needs internet
 
@@ -26,6 +26,7 @@ Weather advice (Seestar tab), place search and the map in the observing-site pic
 | The set-up cannot be skipped | You must give an archive folder, a latitude and a longitude to continue. | Any folder works. If it has no `01_Capture`, press "Create 01_Capture here". Enter your real latitude and longitude, or any numbers, and fix them later in Settings. |
 | The archive drive is unplugged or renamed | The "Set up Starstuff" window opens again, because the folder does not exist. | Reconnect the drive, or give the new folder. |
 | The data folder is on a drive that is not connected | Starstuff does not start as usual. It shows a screen that names the folder and offers only to choose a folder. It never starts with an empty folder in its place. | Connect the drive and start Starstuff again. A folder on a network or removable drive is the reason the set-up asks for a tick. |
+| The phone app and Starstuff may not both fit on the scope | The Seestar accepts only a few connections at once. On our scope with firmware 9.31 the phone app was refused while Starstuff was connected, and the other way round. From 0.7.0-beta.4 Starstuff keeps a single connection to leave room, but we have not yet seen both connected together with this build. | To hand the scope over, press Disconnect in Starstuff's header, then open the phone app. To take it back, close the phone app's connection and press Connect in Starstuff. A run that is already on the scope keeps going while you swap. |
 | Port 8100 is in use | The console prints "port 8100 is already in use" and Starstuff exits. There is no automatic fallback to another port. | Close the other copy, or set the `STARSTUFF_PORT` environment variable to another number such as 8101 before you start. |
 | 2x drizzle has limits | 2x drizzle does not work with "Split LP into Ha + OIII" or on a mosaic, and it needs about 8 times the disk space a normal run needs for its aligned frames. Starstuff says so before the run starts. | Use a normal stack for those cases, or free disk space first. |
 | Sub ratings are not calibrated | The 0 to 100 rating and the word on the Process tab, under Session history, are a first guess. | Treat them as a hint. Nothing is ever deleted because of a rating. Tell us when a rating looks wrong. |
