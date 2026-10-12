@@ -32,10 +32,10 @@ The test is for finding what breaks, what confuses you, and what you wish it did
 ## Download
 
 1. Open the [Releases page](https://github.com/starstuff-app/starstuff-releases/releases) of this repository.
-2. Open the newest release, for example `v0.7.0-beta.5`.
+2. Open the newest release, for example `v0.7.0-beta.6`.
 3. Under Assets, download both files:
-   - `Starstuff-0.7.0-beta.5-win64.zip` is the program.
-   - `Starstuff-0.7.0-beta.5-win64.zip.sha256` is its fingerprint, used in the next step.
+   - `Starstuff-0.7.0-beta.6-win64.zip` is the program.
+   - `Starstuff-0.7.0-beta.6-win64.zip.sha256` is its fingerprint, used in the next step.
 
 Only the plain zip is ever published here. If a file has `seestar` in its name, do not use it, and tell us.
 
@@ -48,7 +48,7 @@ The fingerprint proves the file arrived whole and is the file we published. It t
 3. Run this command. Use your own zip name if it differs:
 
 ```
-certutil -hashfile Starstuff-0.7.0-beta.5-win64.zip SHA256
+certutil -hashfile Starstuff-0.7.0-beta.6-win64.zip SHA256
 ```
 
 4. It prints a line that starts with "SHA256 hash of", then one long code of 64 letters and digits, then "CertUtil: -hashfile command completed successfully."
@@ -62,11 +62,11 @@ If they differ, delete the zip, download it again, and check again. If they stil
 1. Right-click the zip and choose Extract All. Choose a normal folder you can write to, for example `C:\Starstuff-test`. Do not run the program from inside the zip window.
 2. Open the new `Starstuff` folder and double-click `Starstuff.exe`.
 3. A black console window opens, and your browser opens Starstuff a moment later. If the browser does not open, the console prints an address you can type in by hand.
-4. Leave the console window open. Closing it stops Starstuff. Closing only the browser tab does not stop it.
+4. Leave the console window open. Closing it stops Starstuff. Closing only the browser tab does not stop it. You can also stop Starstuff from inside the program: open Settings, scroll to About and press "Quit Starstuff". Use that when there is no console window, which is the case for a copy that an update started (see "How to update").
 
 Starstuff keeps your settings and other data in your user profile, not in its own folder (see "Your data"). The one exception is the gallery previews when you leave Local Processing Path blank: they are cached inside the program folder. You can put the program folder anywhere you can write to. Program Files is not needed.
 
-If you see "port 8100 is already in use", another copy of Starstuff or another program is running. Close it, or set the `STARSTUFF_PORT` environment variable to another number such as 8101 before you start.
+If Starstuff is already running, starting `Starstuff.exe` again opens the running copy in your browser and says so; it does not start a second one. If a message says that port 8100 is in use by another program, close that program, or set the `STARSTUFF_PORT` environment variable to another number such as 8101 before you start.
 
 ## The Windows warning
 
@@ -128,7 +128,7 @@ Where it goes: `%LOCALAPPDATA%\Starstuff\addons`. Nothing inside the Starstuff p
 
 Updates are offered, never switched on by themselves. Starstuff asks pypi.org about once a day whether a newer version exists, even before you add telescope control. Once you have added it, a newer file is also downloaded and checked in the background, but it is not used until you press "Update to ...". The card shows buttons such as "Check for updates", "Update to ..." and "Go back to ...". Both requests are in the internet list below.
 
-To remove it: press "Remove" on the card and confirm. If the card says "Restart Starstuff to finish unloading it", close the console window and start Starstuff again. You can also delete the folder `%LOCALAPPDATA%\Starstuff\addons` while Starstuff is closed.
+To remove it: press "Remove" on the card and confirm. If the card says "Restart Starstuff to finish unloading it", press "Quit Starstuff" in Settings, About (or close the console window, if there is one) and start Starstuff again. You can also delete the folder `%LOCALAPPDATA%\Starstuff\addons` while Starstuff is closed.
 
 Telescope control is new in this test. Parts of it, such as stopping a held mount move, have not been tried on a real telescope by the team. Do not leave your telescope unwatched while you test it.
 
@@ -192,11 +192,11 @@ More about how reports are handled: [CONTRIBUTING-AS-A-TESTER.md](CONTRIBUTING-A
 
 ## How to update
 
-Starstuff can update itself. Open Settings, scroll to About, and find Updates. If you run 0.7.0-beta.3 or 0.7.0-beta.4, use the steps below to reach 0.7.0-beta.5. The manual way, further down, is the fallback if the panel does not work.
+Starstuff can update itself. Open Settings, scroll to About, and find Updates. If you run 0.7.0-beta.3, 0.7.0-beta.4 or 0.7.0-beta.5, use the steps below to reach 0.7.0-beta.6. The manual way, further down, is the fallback if the panel does not work.
 
 1. Starstuff looks for a newer build about once a day. "Check now" looks at once. When one exists, the panel shows its version, its date and a "Release notes" link.
-2. Press "Download and install". Starstuff first checks that there is enough free disk space (about 4 times the zip: the zip, and the program unpacked). It downloads the zip, checks its fingerprint against the `.sha256` file before it unpacks anything, and unpacks into a new folder next to the running one, named like `Starstuff-0.7.0-beta.5-win64`. The running program is not touched. If the fingerprint does not match, the file is deleted and nothing is installed.
-3. Press "Restart into the new version". The new program starts on the same address and this page reloads. Your settings, history and add-on carry over, because they live in your data folder, not in the program folder.
+2. Press "Download and install". Starstuff first checks that there is enough free disk space (about 4 times the zip: the zip, and the program unpacked). It downloads the zip, checks its fingerprint against the `.sha256` file before it unpacks anything, and unpacks into a new folder next to the running one, named like `Starstuff-0.7.0-beta.6-win64`. The running program is not touched. If the fingerprint does not match, the file is deleted and nothing is installed.
+3. Press "Restart into the new version". The new program starts on the same address and this page reloads. Your settings, history and add-on carry over, because they live in your data folder, not in the program folder. The new program runs without a console window, because the updater starts it that way. To close it later, press "Quit Starstuff" in Settings, About.
 4. After the new version has started, the panel offers "Remove the old folder". It asks once and removes only the folder you switched from. It never does it by itself.
 
 The program folder must be one Starstuff can add a new folder next to. If it is not (for example under Program Files), the panel says so; move the folder somewhere you can write to, or update by hand. Builds before 0.7.0-beta.3 cannot update themselves, so going from beta.2 or earlier is done by hand once. The same steps are the fallback if the panel fails:
@@ -210,7 +210,7 @@ If a release note says a data format changed, it will also say what to back up.
 
 ## How to remove Starstuff completely
 
-Close Starstuff first (close the console window). Then delete:
+Close Starstuff first (press "Quit Starstuff" in Settings, About, or close the console window if there is one). Then delete:
 
 1. The program folder you unzipped, for example `C:\Starstuff-test`. If you left Local Processing Path blank, the gallery previews are inside it, in `webapp\.cache\gallery`, and go with it.
 2. `%APPDATA%\Starstuff` (and `%APPDATA%\Cosmos` if it exists).
@@ -228,7 +228,8 @@ Deleting these does not undo what Starstuff did to your archive. Your stacks and
 ## More
 
 - [KNOWN-ISSUES.md](KNOWN-ISSUES.md): what we already know about.
-- [RELEASE-NOTES-0.7.0-beta.5.md](RELEASE-NOTES-0.7.0-beta.5.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.6.md](RELEASE-NOTES-0.7.0-beta.6.md): what is new in this build, and what we would like you to try.
+- [RELEASE-NOTES-0.7.0-beta.5.md](RELEASE-NOTES-0.7.0-beta.5.md): what came with the fifth build.
 - [RELEASE-NOTES-0.7.0-beta.4.md](RELEASE-NOTES-0.7.0-beta.4.md): what came with the fourth build.
 - [RELEASE-NOTES-0.7.0-beta.3.md](RELEASE-NOTES-0.7.0-beta.3.md): what came with the third build.
 - [RELEASE-NOTES-0.7.0-beta.2.md](RELEASE-NOTES-0.7.0-beta.2.md): what came with the second build.

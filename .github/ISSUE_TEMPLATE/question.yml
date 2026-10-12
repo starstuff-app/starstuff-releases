@@ -19,4 +19,4 @@ body:
     attributes:
       label: Starstuff version
       description: In Starstuff press the gear icon (Settings) and scroll down to the heading About. The first line under it is the version. Copy it.
-      placeholder: Starstuff 0.7.0-beta.1
+      placeholder: Starstuff 0.7.0-beta.6
