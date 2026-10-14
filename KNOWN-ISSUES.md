@@ -1,4 +1,4 @@
-# Known issues in 0.7.0-beta.6
+# Known issues in 0.7.0-beta.7
 
 Checked against the code of this build. Tell us if you hit something that is not listed.
 
@@ -11,7 +11,7 @@ Checked against the code of this build. Tell us if you hit something that is not
 | GraXpert | Not included. Optional. Without it a stack still finishes, but without the extra clean-up. | Install it from https://www.graxpert.com if you want it. |
 | Video and timelapse export | Needs ffmpeg, which is not included. | Install ffmpeg so that it is on your PATH. |
 | Telescope control | Not in the zip. It is an optional download inside the app. | On the Seestar tab press "Download Seestar support". See the README. |
-| Updating in the program is new | Settings, About, Updates can find, download and install a newer build, and if you run 0.7.0-beta.5 it is the way to reach 0.7.0-beta.6. The team proved it on real builds, but how it behaves on your PC is still new to us. It refuses a build whose signature or fingerprint does not match. | Try it: press "Check now", then "Download and install", and tell us what the panel says at each step. If it fails, download the zip from this page and unzip it into a new folder (README, "How to update").
+| Updating in the program is new | Settings, About, Updates can find, download and install a newer build, and if you run 0.7.0-beta.6 it is the way to reach 0.7.0-beta.7. The team proved it on real builds, but how it behaves on your PC is still new to us. It refuses a build whose signature or fingerprint does not match. | Try it: press "Check now", then "Download and install", and tell us what the panel says at each step. If it fails, download the zip from this page and unzip it into a new folder (README, "How to update").
 
 ## Needs internet
 
